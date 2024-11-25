@@ -4,6 +4,7 @@ import FSLightbox from "fslightbox-react";
 import { loadImages } from "./images";
 
 const Dashboard = () => {
+    const [toggler, setToggler] = useState(false);
     const [images, setImages] = useState([]); // State to store images
     const [index, setIndex] = useState(-1);   // Index of the currently opened image
 
@@ -16,7 +17,10 @@ const Dashboard = () => {
         fetchImages();
     }, []);
 
-    const handleClick = (index) => setIndex(index);
+    const handleClick = (index) => {
+        setIndex(index);
+        setToggler(!toggler);
+    }
 
     return (
         <div>
@@ -36,9 +40,9 @@ const Dashboard = () => {
                 )}
 
                 <FSLightbox
-                    toggler={index} // When index is set, the lightbox will open
-                    sources={images.map((img) => img.src)} // Array of image sources for lightbox
-                    index={index} // Index of the current image to be displayed in the lightbox
+                    toggler={toggler}
+                    sources={images.map((img) => img.src)}
+                    sourceIndex={index}
                 />
             </div>
         </div>
